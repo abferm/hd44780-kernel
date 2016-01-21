@@ -1,0 +1,9 @@
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index a9f4040..24106f3 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -55,3 +55,4 @@ obj-$(CONFIG_SRAM)		+= sram.o
+ obj-y				+= mic/
+ obj-y				+= cape_bone_argus/
+ obj-$(CONFIG_GENWQE)		+= genwqe/
++obj-$(CONFIG_HD44780)		+= hd44780.o

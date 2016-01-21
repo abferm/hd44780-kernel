@@ -1,0 +1,72 @@
+/*
+ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+/dts-v1/;
+
+#include "am33xx.dtsi"
+#include "am335x-bone-common.dtsi"
+
+&am33xx_pinmux {
+	lcd_pins_write: pinmux_lcd_pins_write {
+		pinctrl-single,pins = <
+			0x2c (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* RS  gpio0[27] P8_17 */
+			0x8c (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* R/W gpio2[1]  P8_18 */
+			0x20 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* E   gpio0[22] P8_19 */
+                        0x24 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB0 gpio0[23] P8_13 */
+                        0xd8 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB1 gpio0[10] P8_31 */
+                        0x28 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB2 gpio0[26] P8_14 */
+                        0xdc (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB3 gpio0[11] P8_32 */
+                        0xe0 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB4 gpio2[22] P8_27 */
+                        0xe4 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB5 gpio2[23] P8_29 */
+                        0xe8 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB6 gpio2[24] P8_28 */
+                        0xec (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* DB7 gpio2[25] P8_30 */
+		>;
+	};
+	lcd_pins_read: pinmux_lcd_pins_read {
+		pinctrl-single,pins = <
+			0x2c (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* RS  gpio0[27] P8_17 */
+			0x8c (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* R/W gpio2[1]  P8_18 */
+			0x20 (PIN_OUTPUT_PULLDOWN | MUX_MODE7 ) /* E   gpio0[22] P8_19 */
+                        0x24 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB0 gpio0[23] P8_13 */
+                        0xd8 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB1 gpio0[10] P8_31 */
+                        0x28 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB2 gpio0[26] P8_14 */
+                        0xdc (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB3 gpio0[11] P8_32 */
+			0xe0 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB4 gpio2[22] P8_27 */
+			0xe4 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB5 gpio2[23] P8_29 */
+			0xe8 (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB6 gpio2[24] P8_28 */
+			0xec (PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* DB7 gpio2[25] P8_30 */
+		>;
+	};
+};
+
+/ {
+	lcd {
+		compatible = "hitachi,hd44780";
+		pinctrl-names = "write", "read";
+		pinctrl-0 = <&lcd_pins_write>;
+		pinctrl-1 = <&lcd_pins_read>;
+
+		mode = "8-bit";
+		rows = <2>;
+		columns = <8>;
+
+		rs-gpio  = <&gpio0 27 GPIO_ACTIVE_HIGH>;
+		rw-gpio  = <&gpio2 1  GPIO_ACTIVE_HIGH>;
+		e-gpio   = <&gpio0 22 GPIO_ACTIVE_HIGH>;
+
+		db0-gpio = <&gpio0 23 GPIO_ACTIVE_HIGH>;
+                db1-gpio = <&gpio0 10 GPIO_ACTIVE_HIGH>;
+                db2-gpio = <&gpio0 26 GPIO_ACTIVE_HIGH>;
+                db3-gpio = <&gpio0 11 GPIO_ACTIVE_HIGH>;
+                db4-gpio = <&gpio2 22 GPIO_ACTIVE_HIGH>;
+                db5-gpio = <&gpio2 23 GPIO_ACTIVE_HIGH>;
+                db6-gpio = <&gpio2 24 GPIO_ACTIVE_HIGH>;
+                db7-gpio = <&gpio2 25 GPIO_ACTIVE_HIGH>;
+
+		status = "okay";
+	};
+};
